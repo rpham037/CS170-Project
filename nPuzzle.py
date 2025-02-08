@@ -1,4 +1,4 @@
-import TreeNode
+from TreeNode import TreeNode
 import heapq as min_heap_esque_queue  # because it sort of acts like a min heap
 
 # Below are some built-in puzzles to allow quick testing.

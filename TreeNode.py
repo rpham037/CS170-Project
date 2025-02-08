@@ -1,18 +1,18 @@
-eight_goal_state = [[1, 2, 3],
-                    [4, 5, 6],
-                    [7, 8, 0]]
 
 
 class TreeNode:
+    eight_goal_state = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+
     def __init__(self, parent, board, gCost, hCost=0): #Initialization of the TreeNode 
         self.parent = parent            #Points to parent node
         self.board = board              #The boards current state
         self.gCost = gCost            #Actual path cost from start node to current node
         self.hCost = hCost            #Heuristic cost exploring new paths
         self.fCost = gCost + hCost   #Total cost, A* algorithm
+        
 
     def solvedBoard(self):
-        return self.board == eight_goal_state
+        return self.board == TreeNode.eight_goal_state
 
     def makeTuple(self):
         return tuple(map(tuple, self.board))
@@ -29,7 +29,7 @@ class TreeNode:
             new_x = x + x1
             new_y = y + y1
             if 0 <= new_x < size and 0 <= new_y < size:
-                new_board = [row[:] for row in board]
+                new_board = [row[:] for row in self.board]
                 new_board[x][y], new_board[new_x][new_y] = new_board[new_x][new_y], new_board[x][y]
                 yield new_board, (new_x, new_y)
 
