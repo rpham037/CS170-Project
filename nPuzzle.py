@@ -138,10 +138,18 @@ def uniform_cost_search(puzzle):
 
         #Prints traceback of the board
         if node_from_queue.solved():
+            solution_depth = 0 #Initializes the solution depth to zero
+            current_node = node_from_queue
+            while current_node.parent:
+                solution_depth += 1 #Increments solution depth. Solution depth is the number of moves to reach the goal state
+
             # Check if the current state of the board is the solution
             while len(stack_to_print) > 0:  # if the stack of nodes for the traceback
                 print_puzzle(stack_to_print.pop())
 
+
+            print("Goal state!")
+            print(f"Solution depth was: {solution_depth}")
             print("Number of nodes expanded:", num_nodes_expanded)
             print("Max queue size:", max_queue_size)
             return node_from_queue
@@ -174,10 +182,19 @@ def a_star_search(puzzle, heuristic_type):
 
         #Prints traceback of the board
         if node_from_queue.solved():
+            solution_depth = 0 #Initializes the solution depth to zero
+            current_node = node_from_queue
+
+            while current_node.parent:
+                solution_depth += 1 #Increments solution depth. Solution depth is the number of moves to reach the goal state
+                current_node = current_node.parent
+
             # Check if the current state of the board is the solution
             while len(stack_to_print) > 0:  # if the stack of nodes for the traceback
                 print_puzzle(stack_to_print.pop())
 
+            print("Goal state!")
+            print(f"Solution depth was: {solution_depth}")
             print("Number of nodes expanded:", num_nodes_expanded)
             print("Max queue size:", max_queue_size)
             return node_from_queue
@@ -197,7 +214,3 @@ if __name__ == "__main__":
     main()
 
 
-# # Adding the new code snippet
-# accusantium = doloremque(laudantium)
-# print(totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi)
-# def de architecto beatae vitae dicta sunt explicabo.

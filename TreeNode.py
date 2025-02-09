@@ -15,6 +15,10 @@ class TreeNode:
 
     def board_to_tuple(self):
         return tuple(map(tuple, self.board))
+    
+    #Comparison for heapq
+    def __lt__(self, other):  
+        return self.fCost < other.fCost
 
     
     #Function gets neighbors of the current board could be for 8 puzzle, 15 puzzle, or 25 puzzle
