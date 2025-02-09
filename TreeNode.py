@@ -10,18 +10,18 @@ class TreeNode:
         self.fCost = gCost + hCost                                          #Total cost, A* algorithm
         
 
-    def solvedBoard(self):
+    def solved(self):
         return self.board == self.eight_goal_state
 
-    def makeTuple(self):
+    def board_to_tuple(self):
         return tuple(map(tuple, self.board))
 
     
     #Function gets neighbors of the current board could be for 8 puzzle, 15 puzzle, or 25 puzzle
     #Function returns a list of new states of for the new board 
-    def getNeighbors(self, pos):
+    def get_neighbors(self, pos):
         size = len(self.board)                                              #Size of the board  
-        x, y = self.findBlank()                                                          #Positions
+        x, y = self.find_blank()                                                          #Positions
         moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]                          #Move about x and y axis
         
         for x1, y1 in moves:
@@ -34,7 +34,7 @@ class TreeNode:
 
 
     #Function finds the blank space in the board indexing through the whole matrix
-    def findBlank(self):
+    def find_blank(self):
         size = len(self.board)
         for i in range(size):
             for j in range(size):

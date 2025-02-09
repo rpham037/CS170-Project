@@ -156,7 +156,7 @@ def uniform_cost_search(puzzle):
 
 
 def a_star_search(puzzle, heuristic_type):
-    starting_node = TreeNode(None, puzzle, 0, heuristic_type(puzzle, eight_goal_state))
+    starting_node = TreeNode(None, puzzle, 0, heuristic_type(puzzle))
     working_queue = []
     repeated_states = dict()
     min_heap_esque_queue.heappush(working_queue, starting_node)
@@ -193,9 +193,8 @@ def a_star_search(puzzle, heuristic_type):
 
 
 
-
-
-
+if __name__ == "__main__":
+    main()
 
 
 # # Adding the new code snippet
