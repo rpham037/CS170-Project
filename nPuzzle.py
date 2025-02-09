@@ -99,22 +99,28 @@ def select_and_init_algorithm(puzzle):
 def misplaced_tile_heuristic(board):
     misplaced_count = 0
 
-    for i in range(len(self.board)):
-        for j in range(len(self.board[i])):
-            if self.board[i][j] != 0:
-                if self.board[i][j] != self.eight_goal_state[i][j]:
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] != 0:
+                if board[i][j] != eight_goal_state[i][j]:
                     misplaced_count += 1
     return misplaced_count
 
 
 def manhattan_distance_heuristic(board):
+    size = len(board)
+    distance = 0
+    for i in range(size):
+        for j in range(size):
+            tile = board[i][j]
+            if tile != 0:
+                goal_x, goal_y = divmod(tile - 1, size)
+                distance += abs(i - goal_x) + abs(j - goal_y)
+    return distance
 
-
-    
 
 def uniform_cost_search(puzzle):
-
-    starting_node = TreeNode.TreeNode(None, puzzle, 0, 0) #Ensures heuristic is 0 and path cost is begins at start node
+    starting_node = TreeNode(None, puzzle, 0, 0) #Ensures heuristic is 0 and path cost is begins at start node
     working_queue = []
     repeated_states = dict()
     min_heap_esque_queue.heappush(working_queue, starting_node)
@@ -150,7 +156,7 @@ def uniform_cost_search(puzzle):
 
 
 def a_star_search(puzzle, heuristic_type):
-    starting_node = TreeNode.TreeNode(None, puzzle, 0, heuristic_type(puzzle))
+    starting_node = TreeNode(None, puzzle, 0, heuristic_type(puzzle, eight_goal_state))
     working_queue = []
     repeated_states = dict()
     min_heap_esque_queue.heappush(working_queue, starting_node)
