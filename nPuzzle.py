@@ -94,12 +94,27 @@ def select_and_init_algorithm(puzzle):
         a_star_search(puzzle, misplaced_tile_heuristic)
     elif algorithm == "3":
         a_star_search(puzzle, manhattan_distance_heuristic)
+
   
+def misplaced_tile_heuristic(board):
+    misplaced_count = 0
+
+    for i in range(len(self.board)):
+        for j in range(len(self.board[i])):
+            if self.board[i][j] != 0:
+                if self.board[i][j] != self.eight_goal_state[i][j]:
+                    misplaced_count += 1
+    return misplaced_count
 
 
-def uniform_cost_search(puzzle, heuristic):
+def manhattan_distance_heuristic(board):
 
-    starting_node = TreeNode.TreeNode(None, puzzle, 0, 0)
+
+    
+
+def uniform_cost_search(puzzle):
+
+    starting_node = TreeNode.TreeNode(None, puzzle, 0, 0) #Ensures heuristic is 0 and path cost is begins at start node
     working_queue = []
     repeated_states = dict()
     min_heap_esque_queue.heappush(working_queue, starting_node)
@@ -115,6 +130,7 @@ def uniform_cost_search(puzzle, heuristic):
         repeated_states[node_from_queue.board_to_tuple()] = "This can be anything"
         num_nodes_expanded += 1
 
+        #Prints traceback of the board
         if node_from_queue.solved():
             # Check if the current state of the board is the solution
             while len(stack_to_print) > 0:  # if the stack of nodes for the traceback
@@ -125,6 +141,54 @@ def uniform_cost_search(puzzle, heuristic):
             return node_from_queue
 
         stack_to_print.append(node_from_queue.board)
+        
+        #Creating all possible moves from the current board
+        for neighbor in node_from_queue.get_neighbors(node_from_queue.find_blank()):
+            if neighbor.board_to_tuple() not in repeated_states:
+                min_heap_esque_queue.heappush(working_queue, neighbor)
+
+
+
+def a_star_search(puzzle, heuristic_type):
+    starting_node = TreeNode.TreeNode(None, puzzle, 0, heuristic_type(puzzle))
+    working_queue = []
+    repeated_states = dict()
+    min_heap_esque_queue.heappush(working_queue, starting_node)
+    num_nodes_expanded = 0
+    max_queue_size = 0
+    repeated_states[starting_node.board_to_tuple()] = "This is the parent board"
+
+    stack_to_print = []  # the board states are stored in a stack
+
+    while len(working_queue) > 0:
+        max_queue_size = max(len(working_queue), max_queue_size)
+        node_from_queue = min_heap_esque_queue.heappop(working_queue)
+        repeated_states[node_from_queue.board_to_tuple()] = "This can be anything"
+        num_nodes_expanded += 1
+
+        #Prints traceback of the board
+        if node_from_queue.solved():
+            # Check if the current state of the board is the solution
+            while len(stack_to_print) > 0:  # if the stack of nodes for the traceback
+                print_puzzle(stack_to_print.pop())
+
+            print("Number of nodes expanded:", num_nodes_expanded)
+            print("Max queue size:", max_queue_size)
+            return node_from_queue
+
+        stack_to_print.append(node_from_queue.board)
+        
+        #Creating all possible moves from the current board
+        for neighbor in node_from_queue.get_neighbors(node_from_queue.find_blank()):
+            if neighbor.board_to_tuple() not in repeated_states:
+                min_heap_esque_queue.heappush(working_queue, neighbor)
+
+
+
+
+
+
+
 
 
 
