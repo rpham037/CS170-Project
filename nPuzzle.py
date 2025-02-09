@@ -89,13 +89,16 @@ def select_and_init_algorithm(puzzle):
     algorithm = input("Select algorithm. (1) for Uniform Cost Search, (2) for the Misplaced Tile Heuristic, "
                       "or (3) the Manhattan Distance Heuristic." + '\n')
     if algorithm == "1":
-        uniform_cost_search(puzzle, 0)
-    if algorithm == "2":
-        uniform_cost_search(puzzle, 1)
+        uniform_cost_search(puzzle)
+    elif algorithm == "2":
+        a_star_search(puzzle, misplaced_tile_heuristic)
+    elif algorithm == "3":
+        a_star_search(puzzle, manhattan_distance_heuristic)
   
 
 
 def uniform_cost_search(puzzle, heuristic):
+
     starting_node = TreeNode.TreeNode(None, puzzle, 0, 0)
     working_queue = []
     repeated_states = dict()
