@@ -136,6 +136,9 @@ def uniform_cost_search(puzzle):
         repeated_states[node_from_queue.board_to_tuple()] = "This can be anything"
         num_nodes_expanded += 1
 
+        print(f"The best state to expand with a g(n) = {node_from_queue.gCost} and h(n) = {node_from_queue.hCost} is...")
+        print_puzzle(node_from_queue.board)
+
         #Prints traceback of the board
         if node_from_queue.solved():
             solution_depth = 0 #Initializes the solution depth to zero
@@ -143,9 +146,7 @@ def uniform_cost_search(puzzle):
             while current_node.parent:
                 solution_depth += 1 #Increments solution depth. Solution depth is the number of moves to reach the goal state
 
-            # Check if the current state of the board is the solution
-            while len(stack_to_print) > 0:  # if the stack of nodes for the traceback
-                print_puzzle(stack_to_print.pop())
+        
 
 
             print("Goal state!")
@@ -180,6 +181,9 @@ def a_star_search(puzzle, heuristic_type):
         repeated_states[node_from_queue.board_to_tuple()] = "This can be anything"
         num_nodes_expanded += 1
 
+        print(f"The best state to expand with a g(n) = {node_from_queue.gCost} and h(n) = {node_from_queue.hCost} is...")
+        print_puzzle(node_from_queue.board)
+
         #Prints traceback of the board
         if node_from_queue.solved():
             solution_depth = 0 #Initializes the solution depth to zero
@@ -189,9 +193,7 @@ def a_star_search(puzzle, heuristic_type):
                 solution_depth += 1 #Increments solution depth. Solution depth is the number of moves to reach the goal state
                 current_node = current_node.parent
 
-            # Check if the current state of the board is the solution
-            while len(stack_to_print) > 0:  # if the stack of nodes for the traceback
-                print_puzzle(stack_to_print.pop())
+        
 
             print("Goal state!")
             print(f"Solution depth was: {solution_depth}")
